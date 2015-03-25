@@ -20,7 +20,7 @@ server.listen(app.get('port'), function() {
 
 var twitter = require('ntwitter');
 
-var watchSymbols = ['goku', 'naruto'];
+var watchSymbols = ['elcomercio', 'peru'];
 
 // Instantiate the twitter connection
 var t = new twitter({
