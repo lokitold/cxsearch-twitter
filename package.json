@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "express": "~4.9.x",
-    "ntwitter" : "*"
+    "ntwitter" : "*",
+    "socket.io" : "~0.9.14"
   },
   "engines": {
     "node": "0.10.x"

@@ -1,5 +1,7 @@
 var express = require('express');
-var app = express();
+var app = express(),
+server = require('http').createServer(app),
+io = require('socket.io').listen(server);
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
@@ -8,13 +10,31 @@ app.get('/', function(request, response) {
   response.send('Hello World!');
 });
 
-app.listen(app.get('port'), function() {
+server.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var twitter = require('ntwitter');
 
-var watchSymbols = ['$msft', '$intc', '$hpq', '$goog', '$nok', '$nvda', '$bac', '$orcl', '$csco', '$aapl', '$ntap', '$emc', '$t', '$ibm', '$vz', '$xom', '$cvx', '$ge', '$ko', '$jnj'];
+var watchSymbols = ['like', 'dislike'];
 
 // Instantiate the twitter connection
 var t = new twitter({
