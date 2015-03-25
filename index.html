@@ -2,14 +2,21 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Socket.io Twitter Cxsearch</title>
+		<style type="text/css">
+			ul.percentage { width: 100% }
+			ul.percentage li { display: block; width: 0 }
+			ul.percentage li span { float: right; display: block}
+			ul.percentage li.elcomercio {background: #F7FE2E; color: #fff}
+			ul.percentage li.larepublica {background: #FF0000; color: #fff}  
+		</style>
 	</head>
 	<body>
 		<h1>Socket.io Twitter Cxsearch</h1>
 		<!--input type="text" id="larepublica"/>
 		<input type="text" id="elcomercio"/-->
 		<ul class="percentage">
-			<li class="elcomercio">0</li>
-			<li class="larepublica">0</li>
+			<li class="elcomercio"> Elcomercio <span>0</span></li>
+			<li class="larepublica">Larepublica <span>0</span></li>
 		</ul>
 		<ul class="tweets"></ul>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -18,14 +25,22 @@
 		    var socket = io.connect();
 		    jQuery(function($){
 		    	var tweetList = $('ul.tweets');
-		    	//var elcomercio = $('#elcomercio');
-		    	//var larepublica = $('#larepublica');
-		    	var elcomercio = $('li.elcomercio');
-		    	var larepublica = $('li.larepublica');
+
+		    	var elcomercioCounter = $('li.elcomercio');
+		    	var larepublicaCounter = $('li.larepublica');
+
+		    	var elcomercioCounterPercentage = $('li.elcomercio span');
+		    	var larepublicaCounterPercentage = $('li.larepublica span');
+
 		    	socket.on('tweet',function(data){
+
+		    		elcomercioCounter.css("width", data.elcomercio + '%');
+		    		elcomercioCounterPercentage.text( data.elcomercio+ '%');
+
+		    		larepublicaCounter.css("width", data.larepublica + '%');
+		    		larepublicaCounterPercentage.text(data.larepublica + '%');
+
 		    		tweetList.prepend('<li>' + data.user + ' : ' + data.text + '</li>');
-		    		elcomercio.text(data.elcomercio + '%');
-		    		larepublica.text(data.larepublica + '%');
 		    	});
 		    });
 		</script>
