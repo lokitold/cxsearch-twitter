@@ -3,8 +3,8 @@
 		<meta charset="utf-8">
 		<title>Socket.io Twitter Cxsearch</title>
 		<style type="text/css">
-			ul.percentage { width: 100% }
-			ul.percentage li { display: block; width: 0 }
+			ul.percentage { width: 100% ;float: left;}
+			ul.percentage li { display: block; width: 0 ;padding:10px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;float: left;clear: left}
 			ul.percentage li span { float: right; display: block}
 			ul.percentage li.elcomercio {background: #F7FE2E; color: #848484}
 			ul.percentage li.larepublica {background: #FF0000; color: #848484}  
@@ -19,6 +19,16 @@
 			<li class="larepublica">Larepublica <span>0</span></li>
 		</ul>
 		<ul class="tweets"></ul>
+		<section id="stream">
+			<section id="elcomercio">
+				<h2>Hablan del comercio</h2>
+				<ul></ul>
+			</section>
+			<section id="larepublica">
+				<h2>Hablan de la republica</h2>
+				<ul></ul>
+			</section>
+		</section>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
