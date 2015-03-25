@@ -5,6 +5,12 @@
 	</head>
 	<body>
 		<h1>Socket.io Twitter Cxsearch</h1>
+		<!--input type="text" id="larepublica"/>
+		<input type="text" id="elcomercio"/-->
+		<ul class="percentage">
+			<li class="elcomercio">0</li>
+			<li class="larepublica">0</li>
+		</ul>
 		<ul class="tweets"></ul>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
@@ -12,8 +18,14 @@
 		    var socket = io.connect();
 		    jQuery(function($){
 		    	var tweetList = $('ul.tweets');
+		    	//var elcomercio = $('#elcomercio');
+		    	//var larepublica = $('#larepublica');
+		    	var elcomercio = $('li.elcomercio');
+		    	var larepublica = $('li.larepublica');
 		    	socket.on('tweet',function(data){
 		    		tweetList.prepend('<li>' + data.user + ' : ' + data.text + '</li>');
+		    		elcomercio.text(data.elcomercio + '%');
+		    		larepublica.text(data.larepublica + '%');
 		    	});
 		    });
 		</script>

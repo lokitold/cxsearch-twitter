@@ -3,6 +3,10 @@ var app = express(),
 server = require('http').createServer(app),
 io = require('socket.io').listen(server);
 
+elcomercio = 0;
+larepublica = 0;
+total = 0;
+
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
@@ -16,11 +20,11 @@ server.listen(app.get('port'), function() {
 });
 
 
-
+//twitter
 
 var twitter = require('ntwitter');
 
-var watchSymbols = ['elcomercio', 'peru'];
+var watchSymbols = ['elcomercio', 'larepublica'];
 
 // Instantiate the twitter connection
 var t = new twitter({
@@ -34,9 +38,28 @@ t.stream('statuses/filter', { track: watchSymbols }, function(stream) {
 //We have a connection. Now watch the 'data' event for incomming tweets.
 	stream.on('data', function(tweet) {
 		//console.log(tweet);
+		text = tweet.text.toLowerCase();
+		if(text.indexOf("elcomercio") !==  -1){
+			elcomercio++
+			total++
+		}
+
+		if(text.indexOf("larepublica") !==  -1){
+			larepublica++
+			total++
+		}
+		else if(text.indexOf("@La_Republica") !==  -1){
+			larepublica++
+			total++
+		}
+		//console.log(total);
 		io.sockets.volatile.emit('tweet',{
 			user: tweet.user.screen_name,
-			text: tweet.text
+			text: tweet.text,
+			elcomercio : (elcomercio/total)*100,
+			larepublica : (larepublica/total)*100
+			//elcomercio : 100,
+			//larepublica : 200
 		});
 	});
 });
