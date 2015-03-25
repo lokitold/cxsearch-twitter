@@ -7,7 +7,8 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response) {
-  response.send('Hello World!');
+  //response.send('Hello World!');
+  response.sendfile(__dirname + '/index.html');
 });
 
 server.listen(app.get('port'), function() {
@@ -15,26 +16,11 @@ server.listen(app.get('port'), function() {
 });
 
 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 var twitter = require('ntwitter');
 
-var watchSymbols = ['like', 'dislike'];
+var watchSymbols = ['goku', 'naruto'];
 
 // Instantiate the twitter connection
 var t = new twitter({
@@ -47,6 +33,10 @@ var t = new twitter({
 t.stream('statuses/filter', { track: watchSymbols }, function(stream) {
 //We have a connection. Now watch the 'data' event for incomming tweets.
 	stream.on('data', function(tweet) {
-		console.log(tweet);
+		//console.log(tweet);
+		io.sockets.volatile.emit('tweet',{
+			user: tweet.user.screen_name,
+			text: tweet.text
+		});
 	});
 });
