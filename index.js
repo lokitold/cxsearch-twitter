@@ -55,20 +55,20 @@ t.stream('statuses/filter', { track: watchSymbols }, function(stream) {
 		if(text.indexOf("larepublica") !==  -1){
 			larepublica++
 			total++
-			io.sockets.volatile.emit('larepublica',{
+			/*io.sockets.volatile.emit('larepublica',{
 				user: tweet.user.screen_name,
 				text: tweet.text,
 				avatar : tweet.user.profile_image_url_https
-			});
+			});*/
 		}
 		else if(text.indexOf("@La_Republica") !==  -1){
 			larepublica++
 			total++
-			io.sockets.volatile.emit('larepublica',{
+			/*io.sockets.volatile.emit('larepublica',{
 				user: tweet.user.screen_name,
 				text: tweet.text,
 				avatar : tweet.user.profile_image_url_https
-			});
+			});*/
 		}
 
 
