@@ -7,7 +7,14 @@
 			ul.percentage li { display: block; width: 0 ;padding:10px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;float: left;clear: left}
 			ul.percentage li span { float: right; display: block}
 			ul.percentage li.elcomercio {background: #F7FE2E; color: #848484}
-			ul.percentage li.larepublica {background: #FF0000; color: #848484}  
+			ul.percentage li.larepublica {background: #FF0000; color: #848484} 
+			#stream { float: left; clear: both;width: 100%}
+			#stream ul { list-style: none}
+			#stream ul li { float: left;clear: left;width: 100%;border-bottom: 1px solid #ccc ;padding: 5px 0}
+			#stream ul li:nth-child(even){background: #f8f5f6}
+			#stream ul li img {float: left;margin-right: 10px;padding: 5px}
+			#elcomercio {width: 45%;float: left}
+			#larepublica {width: 45%;float: right}
 		</style>
 	</head>
 	<body>
@@ -16,7 +23,7 @@
 		<input type="text" id="elcomercio"/-->
 		<ul class="percentage">
 			<li class="elcomercio"> Elcomercio <span>0</span></li>
-			<li class="larepublica">Larepublica <span>0</span></li>
+			<li class="larepublica">Otro diario <span>0</span></li>
 		</ul>
 		<ul class="tweets"></ul>
 		<section id="stream">
@@ -34,7 +41,9 @@
 		<script>
 		    var socket = io.connect();
 		    jQuery(function($){
-		    	var tweetList = $('ul.tweets');
+		    	//var tweetList = $('ul.tweets');
+		    	var elcomercioul = $('#elcomercio ul');
+		    	var larepublicaul = $('#larepublica ul');
 
 		    	var elcomercioCounter = $('li.elcomercio');
 		    	var larepublicaCounter = $('li.larepublica');
@@ -50,7 +59,30 @@
 		    		larepublicaCounter.css("width", data.larepublica + '%');
 		    		larepublicaCounterPercentage.text(data.larepublica + '%');
 
-		    		tweetList.prepend('<li>' + data.user + ' : ' + data.text + '</li>');
+		    		//tweetList.prepend('<li>' + data.user + ' : ' + data.text + '</li>');
+		    	});
+
+		    	socket.on('elcomercio',function(data){
+		    		console.log(data);
+		    		$('<img />')
+		    			.attr('src',data.avatar)
+		    			.load(function(){
+		    				console.log("safdsad");
+		    				elcomercioul
+		    					.prepend($('<li>')
+		    					.prepend($('<p>').text(data.user + ':' + data.text))
+		    					.prepend($(this)));
+		    		});
+		    	});
+		    	socket.on('larepublica',function(data){
+		    		$('<img />')
+		    			.attr('src',data.avatar)
+		    			.load(function(){
+		    				larepublicaul
+		    					.prepend($('<li>')
+		    					.prepend($('<p>').text(data.user + ':' + data.text))
+		    					.prepend($(this)));
+		    			});
 		    	});
 		    });
 		</script>

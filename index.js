@@ -45,20 +45,20 @@ t.stream('statuses/filter', { track: watchSymbols }, function(stream) {
 			io.sockets.volatile.emit('elcomercio',{
 				user: tweet.user.screen_name,
 				text: tweet.text,
-				avatar : data.user.profile_image_url_https
+				avatar : tweet.user.profile_image_url_https
 			});
 		}
 
 
 
-		
+
 		if(text.indexOf("larepublica") !==  -1){
 			larepublica++
 			total++
 			io.sockets.volatile.emit('larepublica',{
 				user: tweet.user.screen_name,
-				text: tweet.text
-				avatar : data.user.profile_image_url_https
+				text: tweet.text,
+				avatar : tweet.user.profile_image_url_https
 			});
 		}
 		else if(text.indexOf("@La_Republica") !==  -1){
@@ -66,18 +66,18 @@ t.stream('statuses/filter', { track: watchSymbols }, function(stream) {
 			total++
 			io.sockets.volatile.emit('larepublica',{
 				user: tweet.user.screen_name,
-				text: tweet.text
-				avatar : data.user.profile_image_url_https
+				text: tweet.text,
+				avatar : tweet.user.profile_image_url_https
 			});
 		}
 
 
 
 
-		//console.log(total);
+		//console.log(tweet.user.profile_image_url_https);
 		io.sockets.volatile.emit('tweet',{
-			user: tweet.user.screen_name,
-			text: tweet.text,
+			//user: tweet.user.screen_name,
+			//text: tweet.text,
 			elcomercio : (elcomercio/total)*100,
 			larepublica : (larepublica/total)*100
 		});
