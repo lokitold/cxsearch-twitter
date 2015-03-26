@@ -51,7 +51,7 @@
 		    	var elcomercioCounterPercentage = $('li.elcomercio span');
 		    	var larepublicaCounterPercentage = $('li.larepublica span');
 
-		    	socket.on('tweet',function(data){
+		    	/*socket.on('tweet',function(data){
 
 		    		elcomercioCounter.css("width", data.elcomercio + '%');
 		    		elcomercioCounterPercentage.text( data.elcomercio+ '%');
@@ -60,10 +60,10 @@
 		    		larepublicaCounterPercentage.text(data.larepublica + '%');
 
 		    		//tweetList.prepend('<li>' + data.user + ' : ' + data.text + '</li>');
-		    	});
+		    	});*/
 
 		    	socket.on('elcomercio',function(data){
-		    		console.log(data);
+		    		//console.log(data);
 		    		$('<img />')
 		    			.attr('src',data.avatar)
 		    			.load(function(){
@@ -72,6 +72,11 @@
 		    					.prepend($('<li>')
 		    					.prepend($('<p>').text(data.user + ':' + data.text))
 		    					.prepend($(this)));
+		    				elcomercioCounter.css("width", data.elcomercio + '%');
+				    		elcomercioCounterPercentage.text( data.elcomercio+ '%');
+
+				    		larepublicaCounter.css("width", data.larepublica + '%');
+				    		larepublicaCounterPercentage.text(data.larepublica + '%');
 		    		});
 		    	});
 		    	socket.on('larepublica',function(data){
@@ -82,6 +87,11 @@
 		    					.prepend($('<li>')
 		    					.prepend($('<p>').text(data.user + ':' + data.text))
 		    					.prepend($(this)));
+		    				elcomercioCounter.css("width", data.elcomercio + '%');
+				    		elcomercioCounterPercentage.text( data.elcomercio+ '%');
+
+				    		larepublicaCounter.css("width", data.larepublica + '%');
+				    		larepublicaCounterPercentage.text(data.larepublica + '%');
 		    			});
 		    	});
 		    });
